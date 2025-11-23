@@ -16,6 +16,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    ""https://your-vercel-app.vercel.app"
 ]
 
 app.add_middleware(
@@ -578,3 +579,4 @@ async def analyze_report(file: UploadFile = File(...)):
         "summary": summary,
         "general_advice": general_guidance,
     }
+
