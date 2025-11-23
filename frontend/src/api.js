@@ -10,12 +10,13 @@ export async function sendMoodChat(mood, message) {
 }
 
 export async function getFitnessPlan(goal, activityLevel, ageGroup) {
-  const res = await axios.post(`${BACKEND_URL}/fitness/plan`, {
-    goal,
-    activity_level: activityLevel,
-    age_group: ageGroup,
+  const res = await fetch(`${BACKEND_URL}/fitness/plan`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ goal, activity_level: activityLevel, age_group: ageGroup }),
   });
-  return res.data; // { goal, activity_level, age_group, plan: [...], tips: [...] }
+  if (!res.ok) throw new Error("Request failed");
+  return res.json();
 }
 
 export async function analyzeReport(file) {
@@ -30,3 +31,4 @@ export async function analyzeReport(file) {
 
   return res.data; // { file_name, summary, general_advice }
 }
+
